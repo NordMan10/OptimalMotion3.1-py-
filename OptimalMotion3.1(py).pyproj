@@ -22,15 +22,35 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AircraftInputData.py" />
+    <Compile Include="AircraftInputDataGenerator.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="enums\AircraftTypes.py" />
+    <Compile Include="enums\AircraftPriorities.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="InputTakingOffMoments.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Interval.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="OptimalMotion3.1_py_.py" />
-    <Compile Include="Static\TakingOffAircraftCreationMoments.py">
+    <Compile Include="static\DataRandomizer.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="static\CommonInputData.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="static\ProgramConstants.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="TakingOffAircraftCreationIntervals.py" />
     <Compile Include="TakingOffAircraftCreationMoments.py" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Static\" />
+    <Folder Include="enums\" />
+    <Folder Include="static\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
