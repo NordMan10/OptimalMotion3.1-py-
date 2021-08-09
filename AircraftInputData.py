@@ -2,7 +2,7 @@ class AircraftInputData(object):
     """description of class"""
 
     def __init__(self, runwayId, specialPlaceId, type, priority,
-		         processingIsNeeded, creationMoments, creationIntervals):
+                 processingIsNeeded, creationMoments, creationIntervals):
         """Constructor.
 
         Keyword arguments:
@@ -23,7 +23,7 @@ class AircraftInputData(object):
         self.creationMoments = creationMoments
         self.creationIntervals = creationIntervals
 
-    def GetRunwayId(self):
+    def get_runway_id(self):
         return self.runwayId
 
     def GetSpecialPlaceId(self):
