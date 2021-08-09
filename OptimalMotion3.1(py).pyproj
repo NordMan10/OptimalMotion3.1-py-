@@ -21,10 +21,13 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AircraftInputData.py" />
     <Compile Include="OptimalMotion3.1_py_.py" />
     <Compile Include="Static\TakingOffAircraftCreationMoments.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TakingOffAircraftCreationIntervals.py" />
+    <Compile Include="TakingOffAircraftCreationMoments.py" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Static\" />
