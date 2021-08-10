@@ -12,10 +12,10 @@ class IMassServiceZoneExtensions(object):
 
     @staticmethod
     def get_free_interval(self, interval, zone_intervals):
-        new_interval = Interval(interval.get_start_moment(), interval.get_end_moment())
+        new_interval = Interval(interval.get_start_moment(), interval.end_moment())
         for key, value in zone_intervals.items():
-            delay = zone_intervals[key].get_end_moment() - interval.get_start_moment()
-            new_interval = Interval(interval.get_start_moment() + delay, interval.get_end_moment() + delay)
+            delay = zone_intervals[key].end_moment() - interval.get_start_moment()
+            new_interval = Interval(interval.get_start_moment() + delay, interval.end_moment() + delay)
 
         return new_interval
 

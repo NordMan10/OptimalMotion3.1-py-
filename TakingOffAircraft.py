@@ -22,12 +22,7 @@ class TakingOffAircraft(object):
 
         self._is_reserve = False
 
-    def get_new_unique_id(self):
-        result = self.next_taking_off_aircraft_id
-        self.next_taking_off_aircraft_id += 1
-
-        return self.next_taking_off_aircraft_id
-
+# <editor-fold desc="Getters and setter">
     @property
     def id(self):
         return self._id
@@ -75,3 +70,14 @@ class TakingOffAircraft(object):
     @is_reserve.setter
     def is_reserve(self, value):
         self.is_reserve = value
+    # </editor-fold>
+
+    def get_new_unique_id(self):
+        result = self.next_taking_off_aircraft_id
+        self.next_taking_off_aircraft_id += 1
+
+        return self.next_taking_off_aircraft_id
+
+    @staticmethod
+    def sort_by_possible_moments(aircraft):
+        return aircraft.creation_moments.possible_taking_off

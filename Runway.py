@@ -9,7 +9,8 @@ class Runway(IMassServiceZone):
         self._id = __id
         self._occupied_intervals = {}
 
-    def get_id(self):
+    @property
+    def id(self):
         return self._id
 
     def add_aircraft_interval(self, aircraft_id, free_interval):

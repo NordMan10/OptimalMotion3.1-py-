@@ -13,28 +13,32 @@ class TakingOffAircraftCreationIntervals(object):
         processing -- Время обработки.
         taking_off -- Время взлета.
         """
-        self.motion_from_parking_to_PS = motion_from_parking_to_PS
-        self.motion_from_PS_to_ES = motion_from_PS_to_ES
-        self.motion_from_parking_to_SP = motion_from_parking_to_SP
-        self.motion_from_SP_to_PS = motion_from_SP_to_PS
-        self.processing = processing
-        self.taking_off = taking_off
+        self._motion_from_parking_to_PS = motion_from_parking_to_PS
+        self._motion_from_PS_to_ES = motion_from_PS_to_ES
+        self._motion_from_parking_to_SP = motion_from_parking_to_SP
+        self._motion_from_SP_to_PS = motion_from_SP_to_PS
+        self._processing = processing
+        self._taking_off = taking_off
 
+    @property
+    def motion_from_parking_to_PS(self):
+        return self._motion_from_parking_to_PS
 
-    def get_motion_from_parking_to_PS(self):
-        return self.motion_from_parking_to_PS
+    @property
+    def motion_from_PS_to_ES(self):
+        return self._motion_from_PS_to_ES
 
-    def get_motion_from_PS_to_ES(self):
-        return self.motion_from_PS_to_ES
+    @property
+    def motion_from_parking_to_SP(self):
+        return self._motion_from_parking_to_SP
 
-    def get_motion_from_parking_to_SP(self):
-        return self.motion_from_parking_to_SP
+    @property
+    def motion_from_SP_to_PS(self):
+        return self._motion_from_SP_to_PS
+    @property
+    def processing(self):
+        return self._processing
 
-    def get_motion_from_SP_to_PS(self):
-        return self.motion_from_SP_to_PS
-
-    def get_processing(self):
-        return self.processing
-
-    def get_taking_off(self):
-        return self.taking_off
+    @property
+    def taking_off(self):
+        return self._taking_off

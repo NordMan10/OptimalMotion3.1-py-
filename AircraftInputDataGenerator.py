@@ -12,20 +12,19 @@ from static.DataRandomizer import DataRandomizer
 
 class AircraftInputDataGenerator(object):
     """Класс для генерации входных данных для каждого ВС."""
-    pass
 
     @staticmethod
-    def get_aircraft_input_data(self, planned_taking_off_moment, runways):
+    def get_aircraft_input_data(planned_taking_off_moment, runways):
         runway_id = str(runways[random.randrange(ProgramConstants.start_id_value, len(runways))].id)
         special_place_id = random.randrange(ProgramConstants.start_id_value, CommonInputData.special_place_count + 1)
 
         aircraft_type = random.choice(list(AircraftTypes)).name
 
-        priority = self._get_aircraft_priority()
-        processing_necessity = self._get_processing_necessity()
+        priority = AircraftInputDataGenerator._get_aircraft_priority()
+        processing_necessity = AircraftInputDataGenerator._get_processing_necessity()
 
         creation_moments = TakingOffAircraftCreationMoments(planned_taking_off_moment)
-        creation_intervals = self._get_taking_off_aircraft_creation_intervals()
+        creation_intervals = AircraftInputDataGenerator._get_taking_off_aircraft_creation_intervals()
 
         return AircraftInputData(runway_id, special_place_id, aircraft_type, priority, processing_necessity,
                                  creation_moments, creation_intervals)
@@ -49,13 +48,18 @@ class AircraftInputDataGenerator(object):
 
     @staticmethod
     def _get_taking_off_aircraft_creation_intervals():
-        motion_from_parking_to_PS = DataRandomizer.get_randomized_value(ProgramConstants.motion_from_parking_to_PS, 25,
-                                                                        15)
+        motion_from_parking_to_PS = DataRandomizer.\
+            get_randomized_value(ProgramConstants.motion_from_parking_to_PS, 25, 15)
+
         motion_from_PS_to_ES = DataRandomizer.get_randomized_value(ProgramConstants.motion_from_PS_to_ES, 25, 15)
-        motion_from_parking_to_SP = DataRandomizer.get_randomized_value(ProgramConstants.motion_from_parking_to_SP, 25,
-                                                                        15)
+
+        motion_from_parking_to_SP = DataRandomizer.\
+            get_randomized_value(ProgramConstants.motion_from_parking_to_SP, 25, 15)
+
         motion_from_SP_to_PS = DataRandomizer.get_randomized_value(ProgramConstants.motion_from_SP_to_PS, 25, 15)
+
         processing_time = DataRandomizer.get_randomized_value(ProgramConstants.processing_time, 25, 15)
+
         taking_off_interval = DataRandomizer.get_randomized_value(ProgramConstants.taking_off_interval, 25, 15)
 
         return TakingOffAircraftCreationIntervals(motion_from_parking_to_PS, motion_from_PS_to_ES,

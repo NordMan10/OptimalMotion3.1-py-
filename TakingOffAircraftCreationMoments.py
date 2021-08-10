@@ -7,7 +7,8 @@ class TakingOffAircraftCreationMoments(object):
         Keyword arguments:
         planned_taking_off -- плановый момент вылета (по умолчанию = 0)
         """
-        self.planned_taking_off = planned_taking_off
+        self._planned_taking_off = planned_taking_off
 
-    def get_planned_taking_off(self):
-        return self.planned_taking_off
+    @property
+    def planned_taking_off(self):
+        return self._planned_taking_off
