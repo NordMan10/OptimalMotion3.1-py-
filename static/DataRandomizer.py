@@ -2,22 +2,22 @@ import random
 
 
 class DataRandomizer(object):
-    """description of class"""
+    """Класс для рандомизации значений"""
 
     @staticmethod
     def get_randomized_value(value, dispersion, step):
-        if (dispersion == 0 or step == 0):
+        if dispersion == 0 or step == 0:
             return value
 
-        minValue = value - (value * float(dispersion) / 100)
-        maxValue = value + (value * float(dispersion) / 100)
+        min_value = value - (value * float(dispersion) / 100)
+        max_value = value + (value * float(dispersion) / 100)
 
-        possibleValues = []
+        possible_values = []
 
-        possibleValue = minValue
-        while possibleValue <= maxValue:
-            possibleValues.append(possibleValue)
-            possibleValue += step
+        possible_value = min_value
+        while possible_value <= max_value:
+            possible_values.append(possible_value)
+            possible_value += step
 
-        randomValueIndex = random.randrange(len(possibleValues))
-        return possibleValues[randomValueIndex]
+        random_value_index = random.randrange(len(possible_values))
+        return possible_values[random_value_index]
