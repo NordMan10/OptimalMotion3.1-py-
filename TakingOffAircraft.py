@@ -80,4 +80,8 @@ class TakingOffAircraft(object):
 
     @staticmethod
     def sort_by_possible_moments(aircraft):
-        return aircraft.creation_moments.possible_taking_off
+        return aircraft.calculating_moments.possible_taking_off
+
+    @staticmethod
+    def sort_by_permitted_moments(aircraft):
+        return aircraft.calculating_moments.permitted_taking_off

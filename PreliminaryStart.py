@@ -13,14 +13,14 @@ class PreliminaryStart(IMassServiceZone):
         return self._id
 
     def add_aircraft_interval(self, aircraft_id, free_interval):
-        IMassServiceZoneExtensions.add_aircraft_interval(self, aircraft_id, free_interval,
+        IMassServiceZoneExtensions.add_aircraft_interval(aircraft_id, free_interval,
                                                          self._occupied_intervals)
 
     def get_free_interval(self, new_interval):
-        IMassServiceZoneExtensions.get_free_interval(self, new_interval, self._occupied_intervals)
+        return IMassServiceZoneExtensions.get_free_interval(new_interval, self._occupied_intervals)
 
     def remove_aircraft_interval(self, aircraft_id):
-        IMassServiceZoneExtensions.remove_aircraft_interval(self, aircraft_id, self._occupied_intervals)
+        IMassServiceZoneExtensions.remove_aircraft_interval(aircraft_id, self._occupied_intervals)
 
     def reset(self):
         self._occupied_intervals.clear()

@@ -14,9 +14,9 @@ class Interval(object):
         return self._end_moment
 
     def is_intervals_intersects(self, other_interval):
-        return other_interval.end_moment() > self.start_moment() and \
-               other_interval.get_start_moment() < self.end_moment()
+        return other_interval.end_moment > self.start_moment and \
+               other_interval.start_moment < self.end_moment
 
     def __add__(self, other):
-        return Interval(self.start_moment() + other.get_start_moment(),
-                        self.end_moment() + other.end_moment())
+        return Interval(self.start_moment + other.start_moment,
+                        self.end_moment + other.end_moment)

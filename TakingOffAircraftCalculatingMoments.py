@@ -36,6 +36,6 @@ class TakingOffAircraftCalculatingMoments(object):
         return self._start
 
     @start.setter
-    def _start(self, value):
+    def start(self, value):
         self._start = value
 
