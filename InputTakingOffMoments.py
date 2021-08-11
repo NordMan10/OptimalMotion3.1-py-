@@ -24,7 +24,7 @@ class InputTakingOffMoments(object):
         return self._ordered_permitted_moments[self._last_permitted_taking_off_moment_index]
 
     def get_nearest_permitted_moment(self, possible_moment):
-        for i in range(self._last_permitted_taking_off_moment_index, len(self._ordered_permitted_moments)):
+        for i in range(self._last_permitted_taking_off_moment_index + 1, len(self._ordered_permitted_moments)):
             permitted_moment = self._ordered_permitted_moments[i]
             if permitted_moment - self._spare_arrival_time_interval.start_moment >= possible_moment:
                 self._last_permitted_taking_off_moment_index = self._ordered_permitted_moments.index(permitted_moment)

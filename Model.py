@@ -338,7 +338,7 @@ class Model(object):
         special_place_id = str(aircraft.special_place_id) if aircraft.processing_necessity else "-"
 
         # Извлекаем все оставшиеся необходимые данные из экземпляра ВС и озвращаем указатель на экземпляр класса CTableRow
-        return TableRow(str(aircraft.id), str(aircraft.creation_moments.plannee_taking_off), str(aircraft.calculating_moments.possible_taking_off),
+        return TableRow(str(aircraft.id), str(aircraft.creation_moments.planned_taking_off), str(aircraft.calculating_moments.possible_taking_off),
                         permitted_moment, str(aircraft.calculating_moments.start), str(aircraft_total_motion_time), str(processing_time),
                         aircraft.processing_necessity, str(aircraft.priority), aircraft.is_reserve, str(aircraft.calculating_intervals.PS_delay),
                         aircraft.runway_id, special_place_id)

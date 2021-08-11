@@ -1,8 +1,7 @@
-import enum
+from enum import IntEnum
 
 
-@enum.unique
-class AircraftPriorities(enum.Enum):
+class AircraftPriorities(IntEnum):
     """Перечисление вариантов значений для приоритета ВС."""
 
     DEFAULT = 1,

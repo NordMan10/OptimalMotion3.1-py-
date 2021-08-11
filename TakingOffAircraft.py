@@ -65,11 +65,11 @@ class TakingOffAircraft(object):
 
     @property
     def is_reserve(self):
-        return self.is_reserve
+        return self._is_reserve
 
     @is_reserve.setter
     def is_reserve(self, value):
-        self.is_reserve = value
+        self._is_reserve = value
     # </editor-fold>
 
     def get_new_unique_id(self):
