@@ -73,10 +73,10 @@ class TakingOffAircraft(object):
     # </editor-fold>
 
     def get_new_unique_id(self):
-        result = self.next_taking_off_aircraft_id
-        self.next_taking_off_aircraft_id += 1
+        result = TakingOffAircraft.next_taking_off_aircraft_id
+        TakingOffAircraft.next_taking_off_aircraft_id += 1
 
-        return self.next_taking_off_aircraft_id
+        return result
 
     @staticmethod
     def sort_by_possible_moments(aircraft):

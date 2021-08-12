@@ -228,7 +228,7 @@ class Model(object):
 
             for i in range(1, reserve_aircraft_count + 1):
                 # Проверяем, есть ли еще возможные моменты и совпадают ли Id ВПП у ВС, которым принадлежат эти моменты
-                if main_aircraft_index + 1 < len(possible_taking_off_moments) and \
+                if main_aircraft_index + i < len(possible_taking_off_moments) and \
                         ordered_taking_off_aircrafts[main_aircraft_index].runway_id == ordered_taking_off_aircrafts[
                         main_aircraft_index + i].runway_id:
                     # Берем возможный момент для резервного ВС
@@ -249,7 +249,7 @@ class Model(object):
         # Задаем  начальное количество резервных ВС
         reserve_aircraft_count = 0
 
-        index = 0
+        index = 1
         # Определяем максимально возможное количество резервных ВС.
         # Пока имеются возможные моменты и разрешенный момент входит в разрешенный страховочный интервал
         while main_aircraft_index + index < len(possible_taking_off_moments) - 1 and \
@@ -309,17 +309,21 @@ class Model(object):
                 arrival_to_PS_moment = aircraft.calculating_moments.start + aircraft.creation_intervals.motion_from_parking_to_SP + \
                                        aircraft.creation_intervals.processing + aircraft.creation_intervals.motion_from_SP_to_PS
             else:
-                arrival_to_PS_moment = aircraft.creation_intervals.motion_from_parking_to_PS
+                arrival_to_PS_moment = aircraft.calculating_moments.start + aircraft.creation_intervals.motion_from_parking_to_PS
+
+            temp1 = aircraft.calculating_moments.reserve_permitted_taking_off - \
+                      arrival_to_PS_moment - aircraft.creation_intervals.motion_from_PS_to_ES - \
+                      aircraft.creation_intervals.taking_off
+
+            temp2 = aircraft.calculating_moments.permitted_taking_off - \
+                      arrival_to_PS_moment - aircraft.creation_intervals.motion_from_PS_to_ES - \
+                      aircraft.creation_intervals.taking_off
 
             # Рассчитываем время простоя
             if aircraft.is_reserve:
-                aircraft.calculating_intervals.PS_delay = aircraft.calculating_moments.reserve_permitted_taking_off - \
-                                                          arrival_to_PS_moment - aircraft.creation_intervals.motion_from_PS_to_ES - \
-                                                          aircraft.creation_intervals.taking_off
+                aircraft.calculating_intervals.PS_delay = temp1
             else:
-                aircraft.calculating_intervals.PS_delay = aircraft.calculating_moments.permitted_taking_off - \
-                                                          arrival_to_PS_moment - aircraft.creation_intervals.motion_from_PS_to_ES - \
-                                                          aircraft.creation_intervals.taking_off
+                aircraft.calculating_intervals.PS_delay = temp2
 
     def _get_table_row(self, aircraft):
         # Рассчитываем общее время движения ВС (без учета времени обработки)
@@ -340,5 +344,5 @@ class Model(object):
         # Извлекаем все оставшиеся необходимые данные из экземпляра ВС и озвращаем указатель на экземпляр класса CTableRow
         return TableRow(str(aircraft.id), str(aircraft.creation_moments.planned_taking_off), str(aircraft.calculating_moments.possible_taking_off),
                         permitted_moment, str(aircraft.calculating_moments.start), str(aircraft_total_motion_time), str(processing_time),
-                        aircraft.processing_necessity, str(aircraft.priority), aircraft.is_reserve, str(aircraft.calculating_intervals.PS_delay),
+                        aircraft.processing_necessity, str(int(aircraft.priority)), aircraft.is_reserve, str(aircraft.calculating_intervals.PS_delay),
                         aircraft.runway_id, special_place_id)

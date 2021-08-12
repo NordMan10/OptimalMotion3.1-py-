@@ -14,8 +14,9 @@ class IMassServiceZoneExtensions(object):
     def get_free_interval(interval, zone_intervals):
         new_interval = Interval(interval.start_moment, interval.end_moment)
         for key, value in zone_intervals.items():
-            delay = zone_intervals[key].end_moment - interval.start_moment
-            new_interval = Interval(interval.start_moment + delay, interval.end_moment + delay)
+            if new_interval.end_moment >= value.start_moment and new_interval.start_moment <= value.end_moment:
+                delay = zone_intervals[key].end_moment - interval.start_moment
+                new_interval = Interval(interval.start_moment + delay, interval.end_moment + delay)
 
         return new_interval
 

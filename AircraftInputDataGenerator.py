@@ -15,7 +15,7 @@ class AircraftInputDataGenerator(object):
 
     @staticmethod
     def get_aircraft_input_data(planned_taking_off_moment, runways):
-        runway_id = str(runways[random.randrange(ProgramConstants.start_id_value, len(runways))].id)
+        runway_id = str(runways[random.randrange(0, len(runways))].id)
         special_place_id = random.randrange(ProgramConstants.start_id_value, CommonInputData.special_place_count + 1)
 
         aircraft_type = random.choice(list(AircraftTypes)).name

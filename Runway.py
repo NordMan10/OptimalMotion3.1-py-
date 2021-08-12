@@ -5,7 +5,7 @@ from IMassServiceZoneExtensions import IMassServiceZoneExtensions
 class Runway(IMassServiceZone):
     """"""
 
-    def __init__(self, __id = 0):
+    def __init__(self, __id=0):
         self._id = __id
         self._occupied_intervals = {}
 

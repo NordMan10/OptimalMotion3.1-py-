@@ -28,8 +28,9 @@ class InputTakingOffMoments(object):
             permitted_moment = self._ordered_permitted_moments[i]
             if permitted_moment - self._spare_arrival_time_interval.start_moment >= possible_moment:
                 self._last_permitted_taking_off_moment_index = self._ordered_permitted_moments.index(permitted_moment)
-
                 return permitted_moment
+
+        return None
 
     def get_unused_planned_moments(self):
         unused_planned_moments = copy.deepcopy(self._ordered_planned_moments)
