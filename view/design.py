@@ -23,13 +23,13 @@ class Ui_MainWindow(object):
         self.tableWidget.setGeometry(QtCore.QRect(160, 170, 351, 241))
         self.tableWidget.setObjectName("tableWidget")
 
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(120, 50, 75, 23))
-        self.pushButton.setObjectName("pushButton")
+        self.start_button = QtWidgets.QPushButton(self.centralwidget)
+        self.start_button.setGeometry(QtCore.QRect(120, 50, 75, 23))
+        self.start_button.setObjectName("start_button")
 
-        self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(380, 60, 75, 23))
-        self.pushButton_4.setObjectName("pushButton_4")
+        self.reset_button = QtWidgets.QPushButton(self.centralwidget)
+        self.reset_button.setGeometry(QtCore.QRect(380, 60, 75, 23))
+        self.reset_button.setObjectName("reset_button")
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
@@ -47,5 +47,5 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "PushButton"))
-        self.pushButton_4.setText(_translate("MainWindow", "PushButton"))
+        self.start_button.setText(_translate("MainWindow", "PushButton"))
+        self.reset_button.setText(_translate("MainWindow", "PushButton"))

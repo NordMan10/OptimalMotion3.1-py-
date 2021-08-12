@@ -3,7 +3,7 @@ from IMassServiceZoneExtensions import IMassServiceZoneExtensions
 
 
 class Runway(IMassServiceZone):
-    """"""
+    """Представление ВПП"""
 
     def __init__(self, __id=0):
         self._id = __id

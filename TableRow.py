@@ -9,6 +9,10 @@ def alt_name(name):
 
 
 class TableRow(object):
+    """
+    Представление объекта Строки Таблицы. Поля класса определяют столбцы. По сути — это формат выходных данных.
+    """
+
     def __init__(self, aircraft_id, planned_taking_off_moment, possible_taking_off_moment, permitted_taking_off_moment,
                  start_moment, total_motion_time, processing_time, processing_necessity, priority, is_reserved,
                  PS_waiting_time, runway_id, special_place_id):
@@ -54,6 +58,11 @@ class TableRow(object):
     @property
     @alt_name("Общее время движения")
     def t_total_motion_time(self):
+        """
+        Общее время движения без учета времени обработки и простоев.
+        :return:
+        """
+
         return self._total_motion_time
 
     @property

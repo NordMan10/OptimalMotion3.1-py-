@@ -22,7 +22,7 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(200, 30, 75, 23))
-        self.pushButton.setObjectName("pushButton")
+        self.pushButton.setObjectName("start_button")
         self.tableWidget = QtWidgets.QTableWidget(self.centralwidget)
         self.tableWidget.setGeometry(QtCore.QRect(100, 140, 611, 321))
         self.tableWidget.setObjectName("tableWidget")
@@ -38,7 +38,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        # self.pushButton.clicked.connect(self.label.clear)
+        # self.start_button.clicked.connect(self.label.clear)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):

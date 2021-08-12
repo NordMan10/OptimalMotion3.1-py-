@@ -4,8 +4,9 @@ from TakingOffAircraftCalculatingIntervals import TakingOffAircraftCalculatingIn
 
 
 class TakingOffAircraft(object):
-    """"""
+    """Представление взлетающего ВС"""
 
+    # Последнее значение Id, присвоенное взлетающему ВС. Используется для генерации нового уникального Id.
     next_taking_off_aircraft_id = ProgramConstants.start_id_value
 
     def __init__(self, input_data):
@@ -45,18 +46,26 @@ class TakingOffAircraft(object):
 
     @property
     def creation_moments(self):
+        """Моменты, задающиеся при создании ВС."""
+
         return self._creation_moments
 
     @property
     def calculating_moments(self):
+        """Моменты, рассчитывающиеся в процессе обработки ВС."""
+
         return self._calculating_moments
 
     @property
     def creation_intervals(self):
+        """Интервалы, задающиеся при создании ВС."""
+
         return self._creation_intervals
 
     @property
     def calculating_intervals(self):
+        """Интервалы, рассчитывающиеся в процессе обработки ВС."""
+
         return self._calculating_intervals
 
     @property
@@ -73,6 +82,12 @@ class TakingOffAircraft(object):
     # </editor-fold>
 
     def get_new_unique_id(self):
+        """
+        Создает новое уникальное значение Id ВС.
+
+        :return: Id ВС.
+        """
+
         result = TakingOffAircraft.next_taking_off_aircraft_id
         TakingOffAircraft.next_taking_off_aircraft_id += 1
 

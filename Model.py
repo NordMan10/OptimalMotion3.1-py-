@@ -11,7 +11,11 @@ from static.CommonInputData import CommonInputData
 
 
 class Model(object):
-    """"""
+    """Основной класс. Содержит главный метод get_output_data().
+
+    Содержит главный метод GetOutputData(), инициирующий работу всей программы, и вспомогательные методы.
+    Метод GetOutputData() предоставляет выходные данные для их графического представления
+    """
 
     def __init__(self, runway_count, special_place_count):
         self._runways = []
@@ -29,14 +33,34 @@ class Model(object):
         return self._special_places
 
     def init_runways(self, runway_count):
+        """
+        Создает заданное количество ВПП.
+
+        :param runway_count: Количество ВПП
+        """
+
         for i in range(ProgramConstants.start_id_value, runway_count + ProgramConstants.start_id_value):
             self.runways.append(Runway(str(i)))
 
     def init_special_places(self, special_place_count):
+        """
+        Создает заданное количество Спец. площадок.
+
+        :param special_place_count:Количество Спец. площадок
+        """
+
         for i in range(ProgramConstants.start_id_value, special_place_count + ProgramConstants.start_id_value):
             self.special_places.append(SpecialPlace(i))
 
     def get_output_data(self, unused_planned_taking_off_moments):
+        """
+        Главный метод программы, инициирующий начало всей работы. На основе заданных и сгенерированных входящих данных
+	    рассчитывает все необходимые выходные данные и предоставляет их в виде списка экземпляров класса CTableRow.
+
+        :param unused_planned_taking_off_moments: Список неиспользованных плановых моментов взлета
+        :return: Список выходящих данных, содержащий экземпляры класса CTableRow, представляющие строки таблицы с выходными данными
+        """
+
         # Создаем набор данных о ВС в формате строки таблицы
         table_rows = []
 
@@ -62,6 +86,14 @@ class Model(object):
         return table_rows
 
     def _get_ordered_configured_taking_off_aircrafts(self, unused_planned_taking_off_moments):
+        """
+        Создает список ВС на основе переданных плановых моментов старта, рассчитывает возможный момент вылета и соответствующий
+	    ему момент старта для каждого ВС.
+
+        :param unused_planned_taking_off_moments: Список плановых моментов взлета
+        :return Возвращает упорядоченный по возможным моментам список ВС с заданными возможными моментами взлета и соответствующими моментами старта.
+        """
+
         # Создаем список ВС
         taking_off_aircrafts = []
 
@@ -119,6 +151,14 @@ class Model(object):
         return taking_off_aircrafts
 
     def _get_runway_start_delay(self, taking_off_aircraft, taking_off_interval):
+        """
+        Рассчитывает задержку момента старта от ВПП. Задержка может образоваться из-за занятости ВПП другим ВС.
+
+        :param taking_off_aircraft: ВС, для которого нужно рассчитать задержку.
+        :param taking_off_interval: Интервал взлета ВС (время, которое он будет занимать ВПП).
+        :return: Величину задержки в секундах.
+        """
+
         # Находим ВПП, на которую движется ВС
         this_runway = next(runway for runway in self.runways if runway.id == taking_off_aircraft.runway_id)
 
@@ -133,6 +173,14 @@ class Model(object):
 
     # noinspection PyPep8Naming
     def _get_special_place_start_delay(self, taking_off_aircraft, SP_arrive_moment):
+        """
+        Рассчитывает задержку момента старта от Спец. площадки. Задержка может образоваться из-за занятости Спец. площадки другим ВС.
+
+        :param taking_off_aircraft: ВС, для которого нужно рассчитать задержку.
+        :param SP_arrive_moment: Момент прибытия ВС Спец. площадку.
+        :return: Величину задержки в секундах.
+        """
+
         # Находим Спец. площадку, на которую движется ВС
         this_special_place = next(special_place for special_place in self.special_places if special_place.id ==
                                   taking_off_aircraft.special_place_id)
@@ -151,6 +199,14 @@ class Model(object):
         return free_SP_interval.start_moment - processing_interval.start_moment
 
     def _reconfigure_aircrafts_with_reserve(self, ordered_taking_off_aircrafts):
+        """
+        На основе переданного списка ВС с заданными возможными моментами взлета и моментами старта определяет возможность назначения и
+	    допустимое количество резервных ВС для каждого ВС, которое уже не назначено резервным. Находит и задает разрешенные моменты взлета для всех ВС.
+	    Рассчитывает и задает новые моменты старта для резервных ВС.
+
+        :param ordered_taking_off_aircrafts: Список ВС с заданными возможными моментами взлета и моментами старта
+        """
+
         # Создаем список использованных индексов
         used_indexes = []
 
@@ -215,6 +271,15 @@ class Model(object):
                 used_indexes.append(aircraft_index)
 
     def _get_reserve_aircraft_start_moments(self, permitted_moment, main_aircraft_index, ordered_taking_off_aircrafts):
+        """
+        Рассчитывает моменты старта для резервных ВС по заданному разрешенному моменту.
+
+        :param permitted_moment: Разрешенный момент.
+        :param main_aircraft_index: Индекс ВС в общем списке, которое является основным, опорным по отношению к резервным ВС.
+        :param ordered_taking_off_aircrafts: Общий список ВС.
+        :return: Словарь, с ключами в виде индексов ВС и значениями в виде моментов старта.
+        """
+
         # Создаем словарь с ключами в виде индексов ВС и значениями в виде моментов старта
         reserve_start_moments_data = {}
 
@@ -230,7 +295,7 @@ class Model(object):
                 # Проверяем, есть ли еще возможные моменты и совпадают ли Id ВПП у ВС, которым принадлежат эти моменты
                 if main_aircraft_index + i < len(possible_taking_off_moments) and \
                         ordered_taking_off_aircrafts[main_aircraft_index].runway_id == ordered_taking_off_aircrafts[
-                        main_aircraft_index + i].runway_id:
+                    main_aircraft_index + i].runway_id:
                     # Берем возможный момент для резервного ВС
                     reserve_aircraft_possible_moment = possible_taking_off_moments[main_aircraft_index + i]
 
@@ -246,6 +311,16 @@ class Model(object):
         return reserve_start_moments_data
 
     def _get_reserve_aircraft_count(self, permitted_moment, main_aircraft_index, possible_taking_off_moments):
+        """
+        На основе заданного в классе CCommonInputData критерия допустимого количества резервных ВС и переданного разрешенного момента
+	    определяет возможное количество резервных ВС для переданного по индексу ВС.
+
+        :param permitted_moment: Разрешенный момент.
+        :param main_aircraft_index: Индекс ВС, для которого нужно найти возможное количество резервных ВС.
+        :param possible_taking_off_moments: Список возможных моментов взлета.
+        :return: Возможное количество резервных ВС для переданного ВС.
+        """
+
         # Задаем  начальное количество резервных ВС
         reserve_aircraft_count = 0
 
@@ -288,6 +363,13 @@ class Model(object):
         return reserve_aircraft_count
 
     def _set_prepared_start_moments(self, all_aircraft_start_moments_data, ordered_taking_off_aircrafts):
+        """
+        Задает заранее подготовленные и переданные моменты старта для переданных ВС.
+
+        :param all_aircraft_start_moments_data: Моменты старта.
+        :param ordered_taking_off_aircrafts: Список ВС.
+        """
+
         for aircraft_index, start_moment in all_aircraft_start_moments_data.items():
             ordered_taking_off_aircrafts[aircraft_index].calculating_moments.start = start_moment
 
@@ -302,6 +384,12 @@ class Model(object):
 
     # noinspection PyPep8Naming
     def _set_PS_waiting_time(self, ordered_configured_taking_off_aircrafts):
+        """
+        Рассчитывает и задает время ожидания на ПРДВ для переданных ВС.
+
+        :param ordered_configured_taking_off_aircrafts: Список ВС
+        """
+
         for aircraft in ordered_configured_taking_off_aircrafts:
             # Рассчитываем момент прибытия на ПРДВ
             arrival_to_PS_moment = 0
@@ -311,21 +399,26 @@ class Model(object):
             else:
                 arrival_to_PS_moment = aircraft.calculating_moments.start + aircraft.creation_intervals.motion_from_parking_to_PS
 
-            temp1 = aircraft.calculating_moments.reserve_permitted_taking_off - \
-                      arrival_to_PS_moment - aircraft.creation_intervals.motion_from_PS_to_ES - \
-                      aircraft.creation_intervals.taking_off
-
-            temp2 = aircraft.calculating_moments.permitted_taking_off - \
-                      arrival_to_PS_moment - aircraft.creation_intervals.motion_from_PS_to_ES - \
-                      aircraft.creation_intervals.taking_off
-
             # Рассчитываем время простоя
             if aircraft.is_reserve:
-                aircraft.calculating_intervals.PS_delay = temp1
+                aircraft.calculating_intervals.PS_delay = aircraft.calculating_moments.reserve_permitted_taking_off - \
+                                                          arrival_to_PS_moment - aircraft.creation_intervals.motion_from_PS_to_ES - \
+                                                          aircraft.creation_intervals.taking_off
             else:
-                aircraft.calculating_intervals.PS_delay = temp2
+                aircraft.calculating_intervals.PS_delay = aircraft.calculating_moments.permitted_taking_off - \
+                                                          arrival_to_PS_moment - aircraft.creation_intervals.motion_from_PS_to_ES - \
+                                                          aircraft.creation_intervals.taking_off
+
+            temp = 4
 
     def _get_table_row(self, aircraft):
+        """
+        Создает экземпляр класса CTableRow и заполняет его выходными данными ВС.
+
+        :param aircraft: ВС, выходные данные которого нужно представить
+        :return: Экземпляр класса CTableRow, представляющих формат выходных данных.
+        """
+
         # Рассчитываем общее время движения ВС (без учета времени обработки)
         aircraft_total_motion_time = aircraft.creation_intervals.taking_off + aircraft.creation_intervals.motion_from_PS_to_ES
         if aircraft.processing_necessity:
@@ -346,3 +439,11 @@ class Model(object):
                         permitted_moment, str(aircraft.calculating_moments.start), str(aircraft_total_motion_time), str(processing_time),
                         aircraft.processing_necessity, str(int(aircraft.priority)), aircraft.is_reserve, str(aircraft.calculating_intervals.PS_delay),
                         aircraft.runway_id, special_place_id)
+
+    def reset_runways(self):
+        for runway in self.runways:
+            runway.reset()
+
+    def reset_special_places(self):
+        for special_place in self.special_places:
+            special_place.reset()

@@ -10,5 +10,5 @@ class TakingOffAircraftCalculatingIntervals(object):
 
     @PS_delay.setter
     def PS_delay(self, value):
-        _PS_delay = value
+        self._PS_delay = value
 
