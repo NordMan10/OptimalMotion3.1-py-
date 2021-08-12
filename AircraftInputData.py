@@ -1,8 +1,8 @@
 class AircraftInputData(object):
-    """description of class"""
+    """Набор входных данных, необходимый для каждого ВС."""
 
-    def __init__(self, runwayId, specialPlaceId, type, priority,
-		         processingIsNeeded, creationMoments, creationIntervals):
+    def __init__(self, runway_id, special_place_id, __type, priority,
+                 processing_necessity, creation_moments, creation_intervals):
         """Constructor.
 
         Keyword arguments:
@@ -15,31 +15,38 @@ class AircraftInputData(object):
         creationIntervals -- Интервалы ВС, задающиеся при создании ВС.
         """
 
-        self.runwayId = runwayId
-        self.specialPlaceId = specialPlaceId
-        self.type = type
-        self.priority = priority
-        self.processingIsNeeded = processingIsNeeded
-        self.creationMoments = creationMoments
-        self.creationIntervals = creationIntervals
+        self._runway_id = runway_id
+        self._special_place_id = special_place_id
+        self._type = __type
+        self._priority = priority
+        self._processing_necessity = processing_necessity
+        self._creation_moments = creation_moments
+        self._creation_intervals = creation_intervals
 
-    def GetRunwayId(self):
-        return self.runwayId
+    @property
+    def runway_id(self):
+        return self._runway_id
 
-    def GetSpecialPlaceId(self):
-        return self.specialPlaceId
+    @property
+    def special_place_id(self):
+        return self._special_place_id
 
-    def GetType(self):
-        return self.type
+    @property
+    def type(self):
+        return self._type
 
-    def GetPriority(self):
-        return self.priority
+    @property
+    def priority(self):
+        return self._priority
 
-    def GetProcessingNecessity(self):
-        return self.processingIsNeeded
+    @property
+    def processing_necessity(self):
+        return self._processing_necessity
 
-    def GetCreationMoments(self):
-        return self.creationMoments
+    @property
+    def creation_moments(self):
+        return self._creation_moments
 
-    def GetCreationIntervals(self):
-        return self.creationIntervals
+    @property
+    def creation_intervals(self):
+        return self._creation_intervals

@@ -1,13 +1,14 @@
 class TakingOffAircraftCreationMoments(object):
     """Набор моментов, получаемых во входных данных для взлетающего ВС."""
 
-    def __init__(self, plannedTakingOff = 0):
+    def __init__(self, planned_taking_off = 0):
         """Constructor.
 
         Keyword arguments:
-        plannedTakingOff -- плановый момент вылета (по умолчанию = 0)
+        planned_taking_off -- плановый момент вылета (по умолчанию = 0)
         """
-        self.plannedTakingOff = plannedTakingOff
+        self._planned_taking_off = planned_taking_off
 
-    def GetPlannedTakingOff(self):
-        return self.plannedTakingOff
+    @property
+    def planned_taking_off(self):
+        return self._planned_taking_off
